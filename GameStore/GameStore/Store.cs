@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +9,31 @@ namespace GameStore
     class Store
     {
         int maxGames = 4;
-        List<Game> showcase = new List<Game>();
+        public List<Game> showcase = new List<Game>();
 
         public Store()
         {
-            showcase.Add(new Game("FPS", 15f, "Call of Duty", "Player vs player competetive game"));
-            showcase.Add(new Game("MMO/RPG", 10f, "Diablo 3", "Welcome to the endless grind :)"));
-            showcase.Add(new Game("Shooter/Battleroyale", 0f, "Fortnite", "Worlds most played battleroyale"));
+            showcase.Add(new Game("Call of Duty", 15f,"FPS" , "Player vs player competetive game"));
+            showcase.Add(new Game("Diablo 3", 10f, "MMO/RPG", "Welcome to the endless grind :)"));
+            showcase.Add(new Game("Fortnite", 0f, "Shooter/Battleroyale", "Worlds most played battleroyale"));
+        }
+
+        public bool IsValidGame(int n)
+        {
+            if (n < showcase.Count)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void PrintShowcase()
+        {
+            foreach (Game g in showcase)
+            {
+                Console.WriteLine("\t["+showcase.IndexOf(g)+"]"+g.name + ", " + g.price);
+            }
         }
 
         public void AddGame(Game game)
@@ -28,6 +46,11 @@ namespace GameStore
         {
             if(showcase.Contains(game))
             showcase.Remove(game);
+        }
+
+        public void SellGame(int game, User user)
+        {
+            SellGame(showcase[game], user);
         }
 
         public void SellGame(Game game, User user)
@@ -52,6 +75,7 @@ namespace GameStore
         {
             this.wallet = wallet;
         }
+       
     }
 
     class Game
@@ -61,6 +85,7 @@ namespace GameStore
         public float price;
         public string description;
 
+        
         public Game(string name, float price, string description, string genre)
         {
             this.name = name;
